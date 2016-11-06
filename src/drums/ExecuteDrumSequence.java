@@ -10,7 +10,23 @@ public class ExecuteDrumSequence {
 
 	public static void main(String[] args) {
 		Scanner ob = new Scanner(System.in);
+		
 		//Setting the USB ports that the Arduinos controlling each of the drum parts are connected to.
+		String bassPort = "";  //store the usb/bluetooth/wifi ports of the Arduinos connected to each drum part
+		String snarePort = "";
+		String highHatPort = "";
+		String cymbalPort = "";
+		//Creating their Arduino objects, mounting each on the correct port, and setting BAUD_RATE to 9600.
+		bass = new Arduino(bassPort, 9600);
+		snare = new Arduino(snarePort, 9600);
+		highHat = new Arduino(highHatPort, 9600);
+		cymbal = new Arduino(cymbalPort, 9600);
+		//opening connections
+		bass.openConnection();
+		snare.openConnection();
+		highHat.openConnection();
+		cymbal.openConnection();
+		
 		
 		
 		System.out.println("Enter the drum sequence to be played in drum tab format.");
@@ -39,33 +55,21 @@ public class ExecuteDrumSequence {
 		
 		System.out.println("Enter anything to execute");
 		ob.next();
+		ob.close();
 		
 		cymbal.serialWrite(cymbalString);
 		highHat.serialWrite(highHatString);
 		snare.serialWrite(snareString);
 		bass.serialWrite(bassString);
+		
+		//closing all connections.
 		cymbal.closeConnection();
 		highHat.closeConnection();
 		snare.closeConnection();
 		bass.closeConnection();
-		ob.close();
+		
 	}
 	
-	public static void setUp(){
-		//Setting the USB ports that the Arduinos controlling each of the drum parts are connected to.
-				String bassPort = ""; 
-				String snarePort = "";
-				String highHatPort = "";
-				String cymbalPort = "";
-				//Creating their Arduino objects and opening connections
-				 bass = new Arduino(bassPort, 9600);
-				 snare = new Arduino(snarePort, 9600);
-				 highHat = new Arduino(highHatPort, 9600);
-				 cymbal = new Arduino(cymbalPort, 9600);
-				bass.openConnection();
-				snare.openConnection();
-				highHat.openConnection();
-				cymbal.openConnection();
-	}
+	
 
 }
