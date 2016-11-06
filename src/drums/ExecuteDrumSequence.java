@@ -68,6 +68,7 @@ public class ExecuteDrumSequence {
 		snare.closeConnection();
 		bass.closeConnection();
 		
+		
 	}
 	
 	
